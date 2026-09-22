@@ -80,3 +80,7 @@ jump={
 
 environment/defaults/default_clear_color=Color(0.004, 0.005, 0.008, 1)
 textures/vram_compression/import_etc2_astc=true
+
+[input_devices]
+
+pointing/emulate_touch_from_mouse=true

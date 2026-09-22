@@ -1,10 +1,11 @@
-[gd_scene load_steps=7 format=3]
+[gd_scene load_steps=8 format=3]
 
 [ext_resource type="PackedScene" path="res://scenes/world/facility.tscn" id="1"]
 [ext_resource type="PackedScene" path="res://scenes/player.tscn" id="2"]
 [ext_resource type="PackedScene" path="res://scenes/enemy.tscn" id="3"]
 [ext_resource type="PackedScene" path="res://scenes/hud.tscn" id="4"]
 [ext_resource type="Script" path="res://scripts/world/main.gd" id="5"]
+[ext_resource type="PackedScene" path="res://scenes/touch_controls.tscn" id="6"]
 
 [sub_resource type="Environment" id="env"]
 background_mode = 1
@@ -41,3 +42,5 @@ environment = SubResource("env")
 [node name="Enemy" parent="." instance=ExtResource("3")]
 
 [node name="HUD" parent="." instance=ExtResource("4")]
+
+[node name="TouchControls" parent="." instance=ExtResource("6")]
