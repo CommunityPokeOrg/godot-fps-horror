@@ -103,7 +103,10 @@ func _build_ui() -> void:
 
 	# controls hint (top-center, fades)
 	_hint = _label(15, Color(0.7, 0.7, 0.65))
-	_hint.text = "WASD move  ·  Shift sprint  ·  Ctrl crouch  ·  F flashlight  ·  E interact  ·  Esc mouse"
+	if _touch_ui():
+		_hint.text = "Left stick: move  ·  drag right side: look  ·  buttons: actions"
+	else:
+		_hint.text = "WASD move  ·  Shift sprint  ·  Ctrl crouch  ·  F flashlight  ·  E interact  ·  Esc mouse"
 	_hint.set_anchors_preset(Control.PRESET_CENTER_TOP)
 	_hint.position = Vector2(-350, 16)
 	_hint.size = Vector2(700, 24)
@@ -141,7 +144,7 @@ func _build_ui() -> void:
 	dlabel.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	_death_screen.add_child(dlabel)
 	var dhint := _label(18, Color(0.8, 0.6, 0.6))
-	dhint.text = "Press Enter to try again"
+	dhint.text = "Tap RETRY to try again" if _touch_ui() else "Press Enter to try again"
 	dhint.set_anchors_preset(Control.PRESET_CENTER)
 	dhint.position = Vector2(-150, 30)
 	dhint.size = Vector2(300, 30)
@@ -159,12 +162,16 @@ func _build_ui() -> void:
 	wlabel.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	_win_screen.add_child(wlabel)
 	var whint := _label(18, Color(0.7, 0.8, 0.7))
-	whint.text = "Press Enter to play again"
+	whint.text = "Tap RETRY to play again" if _touch_ui() else "Press Enter to play again"
 	whint.set_anchors_preset(Control.PRESET_CENTER)
 	whint.position = Vector2(-150, 30)
 	whint.size = Vector2(300, 30)
 	whint.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	_win_screen.add_child(whint)
+
+
+func _touch_ui() -> bool:
+	return DisplayServer.is_touchscreen_available() or OS.has_feature("mobile")
 
 
 func _label(size: int, color: Color) -> Label:

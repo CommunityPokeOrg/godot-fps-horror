@@ -84,12 +84,18 @@ func _ready() -> void:
 
 
 func _unhandled_input(event: InputEvent) -> void:
+	if event is InputEventMouseMotion and Input.mouse_mode == Input.MOUSE_MODE_CAPTURED:
+		look(event.relative)
+
+
+## Apply a camera-look delta (screen pixels). Used by mouse motion and by
+## the touch overlay's drag-look area.
+func look(relative: Vector2) -> void:
 	if frozen or GameManager.state != GameManager.State.PLAYING:
 		return
-	if event is InputEventMouseMotion and Input.mouse_mode == Input.MOUSE_MODE_CAPTURED:
-		head.rotate_y(-event.relative.x * mouse_sensitivity)
-		_pitch = clampf(_pitch - event.relative.y * mouse_sensitivity, -1.45, 1.45)
-		camera.rotation.x = _pitch
+	head.rotate_y(-relative.x * mouse_sensitivity)
+	_pitch = clampf(_pitch - relative.y * mouse_sensitivity, -1.45, 1.45)
+	camera.rotation.x = _pitch
 
 
 func _process(delta: float) -> void:
